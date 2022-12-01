@@ -6,7 +6,15 @@ public class Position {
     public static final int INITIAL_INDEX = -1;
     public static final int FAILED_INDEX = -2;
 
-    private int position = INITIAL_INDEX;
+    private int position;
+
+    public Position() {
+        this.position = INITIAL_INDEX;
+    }
+
+    public Position(int position) {
+        this.position = position;
+    }
 
     public void increase() {
         ++position;
