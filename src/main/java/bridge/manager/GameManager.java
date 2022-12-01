@@ -20,19 +20,28 @@ public class GameManager {
     }
 
     public void run() {
-        do {
-            Result result = bridgeGame.move(InputView.readMoving());
-            OutputView.printMap(result);
-        } while (bridgeGame.canGoForward() || retryOrNot(InputView.readGameCommand()));
+        while (goForward() && retryOrNot()) {
 
+        }
         OutputView.printResult();
     }
 
-    private boolean retryOrNot(RetryQuit comand) {
-        if (comand == RetryQuit.RETRY) {
+    private boolean goForward() {
+        while (bridgeGame.canGoForward()) {
+            Result result = bridgeGame.move(InputView.readMoving());
+            OutputView.printMap(result);
+        }
+
+        return false;
+    }
+
+    private boolean retryOrNot() {
+        RetryQuit command = InputView.readGameCommand();
+        if (command == RetryQuit.RETRY) {
             bridgeGame.retry();
             return true;
         }
+
         return false;
     }
 }
