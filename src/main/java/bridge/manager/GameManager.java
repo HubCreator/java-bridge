@@ -3,7 +3,9 @@ package bridge.manager;
 import bridge.domain.Bridge;
 import bridge.domain.BridgeGame;
 import bridge.domain.BridgeMaker;
+import bridge.domain.Result;
 import bridge.view.InputView;
+import bridge.view.OutputView;
 
 
 public class GameManager {
@@ -12,14 +14,14 @@ public class GameManager {
 
     public GameManager(BridgeMaker bridgeMaker) {
         int bridgeSize = InputView.readBridgeSize();
-        Bridge bridge = new Bridge(bridgeMaker.makeBridge(bridgeSize));
+        Bridge bridge = Bridge.create(bridgeMaker.makeBridge(bridgeSize));
         this.bridgeGame = new BridgeGame(bridge);
     }
 
     public void run() {
-        while (bridgeGame.canGoForward()) {
-            bridgeGame.move(InputView.readMoving());
-
-        }
+        do {
+            Result result = bridgeGame.move(InputView.readMoving());
+            OutputView.printMap(result);
+        } while (bridgeGame.canGoForward());
     }
 }

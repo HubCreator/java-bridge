@@ -6,13 +6,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bridge {
-    private final List<UpDown> bridge;
+    private List<UpDown> bridge;
 
-    public Bridge(List<String> bridge) {
-        this.bridge = mapBridge(bridge);
+    private Bridge() {
     }
 
-    private List<UpDown> mapBridge(List<String> bridge) {
+    private Bridge(List<UpDown> list) {
+        this.bridge = list;
+    }
+
+    public static Bridge create(List<String> bridge) {
+        List<UpDown> list = mapBridge(bridge);
+        return new Bridge(list);
+    }
+
+    private static List<UpDown> mapBridge(List<String> bridge) {
         List<UpDown> result = new ArrayList<>();
         for (String input : bridge) {
             if (UpDown.UP.isMatchFlag(input)) {
@@ -22,5 +30,18 @@ public class Bridge {
             result.add(UpDown.DOWN);
         }
         return result;
+    }
+
+    public boolean isMatch(Position position, UpDown input) {
+        UpDown answer = getByIndex(position);
+        return answer == input;
+    }
+
+    private UpDown getByIndex(Position position) {
+        return bridge.get(position.getPosition());
+    }
+
+    public int size() {
+        return this.bridge.size();
     }
 }
