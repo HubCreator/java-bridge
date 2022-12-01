@@ -1,15 +1,17 @@
 package bridge.util;
 
+import bridge.enums.ConstVariable;
 import bridge.enums.ErrorMessage;
 import bridge.enums.RetryQuit;
 import bridge.enums.UpDown;
 
 public class ValidationUtil {
-    public static void isValidInput(String input) {
+    public static int validate(String input) {
         int value = isDigit(input);
-        if (value < 3 || value > 20) {
+        if (ConstVariable.MIN.isLowerThan(value) || ConstVariable.MAX.isGreaterThan(value)) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT_RANGE.getValue());
         }
+        return value;
     }
 
     private static int isDigit(String input) {
@@ -20,10 +22,14 @@ public class ValidationUtil {
         }
     }
 
-    public static void isValidUpDown(String input) {
+    public static UpDown isValidUpDown(String input) {
         if (!UpDown.UP.isMatchFlag(input) && !UpDown.DOWN.isMatchFlag(input)) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT_UPDOWN.getValue());
         }
+        if (UpDown.UP.isMatchFlag(input)) {
+            return UpDown.UP;
+        }
+        return UpDown.DOWN;
     }
 
     public static void isValidRetryQuit(String value) {
