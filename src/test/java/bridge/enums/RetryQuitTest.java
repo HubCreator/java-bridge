@@ -29,7 +29,7 @@ class RetryQuitTest {
         void case2(String value) {
             assertThatThrownBy(() -> ValidationUtil.isValidRetryQuit(value))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessage(ErrorMessage.INVALID_INPUT_RETRYQUIT.getValue());
+                    .hasMessage(ErrorMessage.INVALID_INPUT_RETRY_QUIT.getValue());
         }
     }
 

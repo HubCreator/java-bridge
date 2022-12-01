@@ -30,7 +30,7 @@ class UpDownTest {
         void case2(String value) {
             assertThatThrownBy(() -> ValidationUtil.isValidUpDown(value))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessage(ErrorMessage.INVALID_INPUT_UPDOWN.getValue());
+                    .hasMessage(ErrorMessage.INVALID_INPUT_UP_DOWN.getValue());
         }
     }
 }

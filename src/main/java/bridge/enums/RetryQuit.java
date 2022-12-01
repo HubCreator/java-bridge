@@ -1,7 +1,7 @@
 package bridge.enums;
 
 public enum RetryQuit {
-    RETRY("R"), QUIt("Q");
+    RETRY("R"), QUIT("Q");
 
     private final String flag;
 

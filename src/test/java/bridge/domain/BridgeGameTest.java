@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class BridgeGameTest {
     BridgeGame bridgeGame;
@@ -54,5 +54,4 @@ class BridgeGameTest {
         Result result3 = bridgeGame.move(UpDown.UP);
         assertThat(result3.toString()).isEqualTo("[ O ]\n[   ]");
     }
-
 }

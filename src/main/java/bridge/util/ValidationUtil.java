@@ -24,7 +24,7 @@ public class ValidationUtil {
 
     public static UpDown isValidUpDown(String input) {
         if (!UpDown.UP.isMatchFlag(input) && !UpDown.DOWN.isMatchFlag(input)) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT_UPDOWN.getValue());
+            throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT_UP_DOWN.getValue());
         }
         if (UpDown.UP.isMatchFlag(input)) {
             return UpDown.UP;
@@ -33,8 +33,8 @@ public class ValidationUtil {
     }
 
     public static void isValidRetryQuit(String value) {
-        if (!RetryQuit.RETRY.isMatchFlag(value) && !RetryQuit.QUIt.isMatchFlag(value)) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT_RETRYQUIT.getValue());
+        if (!RetryQuit.RETRY.isMatchFlag(value) && !RetryQuit.QUIT.isMatchFlag(value)) {
+            throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT_RETRY_QUIT.getValue());
         }
     }
 }
