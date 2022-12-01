@@ -20,7 +20,7 @@ class BridgeGameTest {
 
     @DisplayName("끝까지 도달")
     @Test
-    void case1() {
+    void reachedToTheEndTest() {
         Result result1 = bridgeGame.move(UpDown.UP);
         assertThat(result1.toString()).isEqualTo("[ O ]\n[   ]");
 
@@ -29,6 +29,30 @@ class BridgeGameTest {
 
         Result result3 = bridgeGame.move(UpDown.DOWN);
         assertThat(result3.toString()).isEqualTo("[ O | O |   ]\n[   |   | O ]");
+    }
+
+    @DisplayName("중간에 실패")
+    @Test
+    void canNotReachedToTheEndTest() {
+        Result result1 = bridgeGame.move(UpDown.UP);
+        assertThat(result1.toString()).isEqualTo("[ O ]\n[   ]");
+
+        Result result2 = bridgeGame.move(UpDown.DOWN);
+        assertThat(result2.toString()).isEqualTo("[ O |   ]\n[   | X ]");
+    }
+
+    @DisplayName("실패 후 재시작")
+    @Test
+    void retryTest() {
+        Result result1 = bridgeGame.move(UpDown.UP);
+        assertThat(result1.toString()).isEqualTo("[ O ]\n[   ]");
+
+        Result result2 = bridgeGame.move(UpDown.DOWN);
+        assertThat(result2.toString()).isEqualTo("[ O |   ]\n[   | X ]");
+
+        bridgeGame.retry();
+        Result result3 = bridgeGame.move(UpDown.UP);
+        assertThat(result3.toString()).isEqualTo("[ O ]\n[   ]");
     }
 
 }

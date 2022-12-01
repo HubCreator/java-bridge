@@ -24,6 +24,10 @@ public class Position {
         return position;
     }
 
+    public void clear() {
+        this.position = INITIAL_INDEX;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

@@ -5,11 +5,13 @@ import bridge.enums.UpDown;
 import java.util.StringJoiner;
 
 public class Result {
+    private final int size;
     private ResultBridge upBridge;
     private ResultBridge downBridge;
     private Position currentPosition;
 
     public Result(int size) {
+        this.size = size;
         this.upBridge = ResultBridge.create(size);
         this.downBridge = ResultBridge.create(size);
     }
@@ -30,6 +32,11 @@ public class Result {
             return;
         }
         downBridge.failUpdate(position);
+    }
+
+    public void clear() {
+        this.upBridge = ResultBridge.create(size);
+        this.downBridge = ResultBridge.create(size);
     }
 
     @Override
