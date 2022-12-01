@@ -24,6 +24,18 @@ public class Position {
         return position;
     }
 
+    public void fail() {
+        this.position = FAILED_INDEX;
+    }
+
+    public boolean isFail() {
+        return this.position == FAILED_INDEX;
+    }
+
+    public boolean isSame(int value) {
+        return position == value;
+    }
+
     public void clear() {
         this.position = INITIAL_INDEX;
     }

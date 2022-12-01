@@ -32,9 +32,13 @@ public class ValidationUtil {
         return UpDown.DOWN;
     }
 
-    public static void isValidRetryQuit(String value) {
-        if (!RetryQuit.RETRY.isMatchFlag(value) && !RetryQuit.QUIT.isMatchFlag(value)) {
+    public static RetryQuit isValidRetryQuit(String input) {
+        if (!RetryQuit.RETRY.isMatchFlag(input) && !RetryQuit.QUIT.isMatchFlag(input)) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT_RETRY_QUIT.getValue());
         }
+        if (RetryQuit.RETRY.isMatchFlag(input)) {
+            return RetryQuit.RETRY;
+        }
+        return RetryQuit.QUIT;
     }
 }

@@ -4,6 +4,7 @@ import bridge.domain.Bridge;
 import bridge.domain.BridgeGame;
 import bridge.domain.BridgeMaker;
 import bridge.domain.Result;
+import bridge.enums.RetryQuit;
 import bridge.view.InputView;
 import bridge.view.OutputView;
 
@@ -22,6 +23,16 @@ public class GameManager {
         do {
             Result result = bridgeGame.move(InputView.readMoving());
             OutputView.printMap(result);
-        } while (bridgeGame.canGoForward());
+        } while (bridgeGame.canGoForward() || retryOrNot(InputView.readGameCommand()));
+
+        OutputView.printResult();
+    }
+
+    private boolean retryOrNot(RetryQuit comand) {
+        if (comand == RetryQuit.RETRY) {
+            bridgeGame.retry();
+            return true;
+        }
+        return false;
     }
 }

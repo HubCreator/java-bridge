@@ -41,7 +41,7 @@ public class Bridge {
         return bridge.get(position.getPosition());
     }
 
-    public int size() {
-        return this.bridge.size();
+    public boolean hasReachedToTheEnd(Position position) {
+        return position.isSame(this.bridge.size() - 1);
     }
 }

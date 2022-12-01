@@ -33,6 +33,7 @@ public class BridgeGame {
             return result;
         }
         result.failedUpdate(input);
+        position.fail();
         return result;
     }
 
@@ -48,6 +49,6 @@ public class BridgeGame {
     }
 
     public boolean canGoForward() {
-        return false;
+        return !position.isFail() && !answer.hasReachedToTheEnd(position);
     }
 }

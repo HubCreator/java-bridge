@@ -1,9 +1,12 @@
 package bridge.view;
 
+import bridge.enums.RetryQuit;
 import bridge.enums.UpDown;
 import bridge.enums.ViewMessage;
 import bridge.util.ValidationUtil;
 import camp.nextstep.edu.missionutils.Console;
+
+import javax.swing.text.View;
 
 /**
  * 사용자로부터 입력을 받는 역할을 한다.
@@ -41,8 +44,15 @@ public class InputView {
     /**
      * 사용자가 게임을 다시 시도할지 종료할지 여부를 입력받는다.
      */
-    public static String readGameCommand() {
-        return null;
+    public static RetryQuit readGameCommand() {
+        printMessage(ViewMessage.INPUT_RETRY_OR_QUIT);
+        while (true) {
+            try {
+                return ValidationUtil.isValidRetryQuit(Console.readLine());
+            } catch (IllegalArgumentException e) {
+                printMessage(e);
+            }
+        }
     }
 
     public static void printMessage(ViewMessage message) {
