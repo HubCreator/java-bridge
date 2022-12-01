@@ -7,7 +7,11 @@ import java.util.List;
 import java.util.StringJoiner;
 
 public class ResultBridge {
-    private List<ResultFlag> resultBridge;
+    public static final String PREFIX = "[ ";
+    public static final String SUFFIX = " ]";
+    public static final String DELIMITER = " | ";
+
+    private final List<ResultFlag> resultBridge;
 
     private ResultBridge(List<ResultFlag> resultBridge) {
         this.resultBridge = resultBridge;
@@ -31,7 +35,7 @@ public class ResultBridge {
 
     @Override
     public String toString() {
-        StringJoiner stringJoiner = new StringJoiner(" | ", "[ ", " ]");
+        StringJoiner stringJoiner = new StringJoiner(DELIMITER, PREFIX, SUFFIX);
         for (ResultFlag resultFlag : resultBridge) {
             stringJoiner.add(resultFlag.getValue());
         }
