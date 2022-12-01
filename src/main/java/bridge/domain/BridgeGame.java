@@ -10,12 +10,12 @@ public class BridgeGame {
     private final Bridge answer;
     private final Position position;
     private final Result result;
-    private  TryCount tryCount;
+    private TryCount tryCount;
 
     public BridgeGame(Bridge bridge) {
         this.answer = bridge;
         this.position = new Position();
-        this.result = new Result(bridge.size());
+        this.result = new Result();
         this.tryCount = new TryCount();
     }
 
@@ -29,10 +29,10 @@ public class BridgeGame {
     public Result move(UpDown input) {
         position.increase();
         if (answer.isMatch(position, input)) {
-            result.correctUpdate(position, input);
+            result.correctUpdate(input);
             return result;
         }
-        result.failedUpdate(position, input);
+        result.failedUpdate(input);
         return result;
     }
 

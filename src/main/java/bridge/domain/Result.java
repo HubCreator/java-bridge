@@ -2,51 +2,42 @@ package bridge.domain;
 
 import bridge.enums.UpDown;
 
-import java.util.StringJoiner;
-
 public class Result {
-    private final int size;
     private ResultBridge upBridge;
     private ResultBridge downBridge;
-    private Position currentPosition;
 
-    public Result(int size) {
-        this.size = size;
-        this.upBridge = ResultBridge.create(size);
-        this.downBridge = ResultBridge.create(size);
+    public Result() {
+        this.upBridge = ResultBridge.create();
+        this.downBridge = ResultBridge.create();
     }
 
-    public void correctUpdate(Position position, UpDown input) {
-        currentPosition = position;
+    public void correctUpdate(UpDown input) {
         if (UpDown.UP == input) {
-            upBridge.correctUpdate(position);
+            upBridge.addOFlag();
+            downBridge.addEmptyFlag();
             return;
         }
-        downBridge.correctUpdate(position);
+        downBridge.addOFlag();
+        upBridge.addEmptyFlag();
     }
 
-    public void failedUpdate(Position position, UpDown input) {
-        currentPosition = position;
+    public void failedUpdate(UpDown input) {
         if (UpDown.UP == input) {
-            upBridge.failUpdate(position);
+            upBridge.addXFlag();
+            downBridge.addEmptyFlag();
             return;
         }
-        downBridge.failUpdate(position);
+        downBridge.addXFlag();
+        upBridge.addEmptyFlag();
     }
 
     public void clear() {
-        this.upBridge = ResultBridge.create(size);
-        this.downBridge = ResultBridge.create(size);
+        this.upBridge = ResultBridge.create();
+        this.downBridge = ResultBridge.create();
     }
 
     @Override
     public String toString() {
-        StringJoiner upJoiner = new StringJoiner(" | ", "[ ", " ]");
-        StringJoiner downJoiner = new StringJoiner(" | ", "[ ", " ]");
-        for (int index = 0; index <= currentPosition.getPosition(); index++) {
-            upJoiner.add(upBridge.getByIndex(index));
-            downJoiner.add(downBridge.getByIndex(index));
-        }
-        return upJoiner + "\n" + downJoiner;
+        return upBridge.toString() + "\n" + downBridge.toString();
     }
 }
