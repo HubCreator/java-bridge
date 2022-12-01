@@ -12,4 +12,8 @@ public enum RetryQuit {
     public boolean isMatchFlag(String input) {
         return this.flag.equals(input);
     }
+
+    public String getFlag() {
+        return flag;
+    }
 }
