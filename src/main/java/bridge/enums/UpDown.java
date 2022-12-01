@@ -11,7 +11,22 @@ public enum UpDown {
         this.value = value;
     }
 
+    public static UpDown map(int value) {
+        if (value == UP.value) {
+            return UP;
+        }
+        return DOWN;
+    }
+
     public boolean isMatchFlag(String input) {
         return this.flag.equals(input);
+    }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public int getValue() {
+        return value;
     }
 }
