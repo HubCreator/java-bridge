@@ -32,20 +32,20 @@ public class Bridge {
         return result;
     }
 
-    public boolean isMatch(Position position, UpDown input) {
-        UpDown answer = getByIndex(position);
-        return answer == input;
-    }
-
-    public boolean isSucceed(Position position) {
-        return position.isSame(bridge.size() - 1);
-    }
-
     private UpDown getByIndex(Position position) {
         return bridge.get(position.getPosition());
     }
 
-    public boolean hasReachedToTheEnd(Position position) {
+    boolean isMatch(Position position, UpDown input) {
+        UpDown answer = getByIndex(position);
+        return answer.isEqualTo(input);
+    }
+
+    boolean isSucceed(Position position) {
+        return position.isSame(bridge.size() - 1);
+    }
+
+    boolean hasReachedToTheEnd(Position position) {
         return position.isSame(this.bridge.size() - 1);
     }
 }

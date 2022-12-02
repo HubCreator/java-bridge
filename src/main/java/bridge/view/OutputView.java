@@ -15,7 +15,7 @@ public class OutputView {
      * @param gameStatusMap
      */
     public static void printMap(GameStatusMap gameStatusMap) {
-        System.out.println(gameStatusMap.toString());
+        print(gameStatusMap.toString());
     }
 
     /**
@@ -25,6 +25,10 @@ public class OutputView {
      * @param bridgeGame
      */
     public static void printResult(BridgeGame bridgeGame) {
-        System.out.println(bridgeGame.toString());
+        print(bridgeGame.toString());
+    }
+
+    private static void print(String output) {
+        System.out.println(output);
     }
 }

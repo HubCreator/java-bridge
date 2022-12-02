@@ -24,7 +24,7 @@ class UpDownTest {
                     .doesNotThrowAnyException();
         }
 
-        @DisplayName("이외의 입력은 에러를 발생시킨다..")
+        @DisplayName("이외의 입력은 에러를 발생시킨다.")
         @ParameterizedTest
         @ValueSource(strings = {"R", "Q", "!", "123", ""})
         void case2(String value) {

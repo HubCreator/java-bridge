@@ -9,6 +9,10 @@ public enum RetryQuit {
         this.flag = flag;
     }
 
+    public boolean isEqualTo(RetryQuit input) {
+        return this == input;
+    }
+
     public boolean isMatchFlag(String input) {
         return this.flag.equals(input);
     }

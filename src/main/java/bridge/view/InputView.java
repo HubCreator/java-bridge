@@ -6,8 +6,6 @@ import bridge.enums.ViewMessage;
 import bridge.util.ValidationUtil;
 import camp.nextstep.edu.missionutils.Console;
 
-import javax.swing.text.View;
-
 /**
  * 사용자로부터 입력을 받는 역할을 한다.
  */
@@ -21,8 +19,8 @@ public class InputView {
         while (true) {
             try {
                 return ValidationUtil.validate(Console.readLine());
-            } catch (IllegalArgumentException e) {
-                printMessage(e);
+            } catch (IllegalArgumentException exception) {
+                printMessage(exception);
             }
         }
     }
@@ -35,8 +33,8 @@ public class InputView {
         while (true) {
             try {
                 return ValidationUtil.isValidUpDown(Console.readLine());
-            } catch (IllegalArgumentException e) {
-                printMessage(e);
+            } catch (IllegalArgumentException exception) {
+                printMessage(exception);
             }
         }
     }
@@ -49,23 +47,23 @@ public class InputView {
         while (true) {
             try {
                 return ValidationUtil.isValidRetryQuit(Console.readLine());
-            } catch (IllegalArgumentException e) {
-                printMessage(e);
+            } catch (IllegalArgumentException exception) {
+                printMessage(exception);
             }
         }
     }
 
-    public static void printMessage(ViewMessage message) {
+    private static void printMessage(ViewMessage message) {
         System.out.println(message.getValue());
     }
 
-    public static void printMessage(ViewMessage... messages) {
+    private static void printMessage(ViewMessage... messages) {
         for (ViewMessage message : messages) {
             printMessage(message);
         }
     }
 
-    public static void printMessage(IllegalArgumentException exception) {
+    private static void printMessage(IllegalArgumentException exception) {
         System.out.println(exception.getMessage());
     }
 }

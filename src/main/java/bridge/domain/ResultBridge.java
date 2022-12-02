@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.StringJoiner;
 
 public class ResultBridge {
-    public static final String PREFIX = "[ ";
-    public static final String SUFFIX = " ]";
-    public static final String DELIMITER = " | ";
+    private static final String PREFIX = "[ ";
+    private static final String SUFFIX = " ]";
+    private static final String DELIMITER = " | ";
 
     private final List<GameStatusFlag> resultBridge;
 
@@ -21,15 +21,15 @@ public class ResultBridge {
         return new ResultBridge(new ArrayList<>());
     }
 
-    public void addOFlag() {
+     void addOFlag() {
         resultBridge.add(GameStatusFlag.O_FLAG);
     }
 
-    public void addXFlag() {
+     void addXFlag() {
         resultBridge.add(GameStatusFlag.X_FLAG);
     }
 
-    public void addEmptyFlag() {
+     void addEmptyFlag() {
         resultBridge.add(GameStatusFlag.EMPTY_FLAG);
     }
 

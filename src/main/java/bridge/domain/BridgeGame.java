@@ -13,7 +13,7 @@ public class BridgeGame {
     private final Bridge answer;
     private final Position position;
     private final GameStatusMap gameStatusMap;
-    private TryCount tryCount;
+    private final TryCount tryCount;
 
     public BridgeGame(Bridge bridge) {
         this.answer = bridge;
@@ -61,9 +61,9 @@ public class BridgeGame {
         result.append(gameStatusMap);
         if (answer.isSucceed(position)) {
             result.append(MessageFormat.format(ViewMessage.OUTPUT_IS_SUCCEED.getValue(), ViewMessage.SUCCEED.getValue(), tryCount.getTryCount()));
+            return result.toString();
         }
         result.append(MessageFormat.format(ViewMessage.OUTPUT_IS_SUCCEED.getValue(), ViewMessage.FAILED.getValue(), tryCount.getTryCount()));
-
         return result.toString();
     }
 }

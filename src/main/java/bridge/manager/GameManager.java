@@ -5,13 +5,14 @@ import bridge.domain.BridgeGame;
 import bridge.domain.BridgeMaker;
 import bridge.domain.GameStatusMap;
 import bridge.enums.RetryQuit;
+import bridge.util.ValidationUtil;
 import bridge.view.InputView;
 import bridge.view.OutputView;
 
 
 public class GameManager {
 
-    private BridgeGame bridgeGame;
+    private final BridgeGame bridgeGame;
 
     public GameManager(BridgeMaker bridgeMaker) {
         int bridgeSize = InputView.readBridgeSize();
@@ -37,7 +38,7 @@ public class GameManager {
 
     private boolean retryOrNot() {
         RetryQuit command = InputView.readGameCommand();
-        if (command == RetryQuit.RETRY) {
+        if (RetryQuit.RETRY.isEqualTo(command)) {
             bridgeGame.retry();
             return true;
         }

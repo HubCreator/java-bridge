@@ -30,7 +30,7 @@ class ValidationUtilTest {
             }
         }
 
-        @DisplayName("만약 유효하지 않은")
+        @DisplayName("만약 유효하지 않은 입력값이 들어오는데")
         @Nested
         class ContextInValidInputTest {
 

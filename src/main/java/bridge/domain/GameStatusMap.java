@@ -2,17 +2,20 @@ package bridge.domain;
 
 import bridge.enums.UpDown;
 
+import java.text.MessageFormat;
+
 public class GameStatusMap {
+    private static final String messageFormat = "{0}\n{1}";
+
     private ResultBridge upBridge;
     private ResultBridge downBridge;
 
     public GameStatusMap() {
-        this.upBridge = ResultBridge.create();
-        this.downBridge = ResultBridge.create();
+        clear();
     }
 
-    public void correctUpdate(UpDown input) {
-        if (UpDown.UP == input) {
+    void correctUpdate(UpDown input) {
+        if (UpDown.UP.isEqualTo(input)) {
             upBridge.addOFlag();
             downBridge.addEmptyFlag();
             return;
@@ -21,8 +24,8 @@ public class GameStatusMap {
         upBridge.addEmptyFlag();
     }
 
-    public void failedUpdate(UpDown input) {
-        if (UpDown.UP == input) {
+    void failedUpdate(UpDown input) {
+        if (UpDown.UP.isEqualTo(input)) {
             upBridge.addXFlag();
             downBridge.addEmptyFlag();
             return;
@@ -31,13 +34,13 @@ public class GameStatusMap {
         upBridge.addEmptyFlag();
     }
 
-    public void clear() {
+    void clear() {
         this.upBridge = ResultBridge.create();
         this.downBridge = ResultBridge.create();
     }
 
     @Override
     public String toString() {
-        return upBridge.toString() + "\n" + downBridge.toString();
+        return MessageFormat.format(messageFormat, upBridge.toString(), downBridge.toString());
     }
 }

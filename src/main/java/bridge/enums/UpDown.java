@@ -22,6 +22,9 @@ public enum UpDown {
         return this.flag.equals(input);
     }
 
+    public boolean isEqualTo(UpDown input) {
+        return this == input;
+    }
     public String getFlag() {
         return flag;
     }
