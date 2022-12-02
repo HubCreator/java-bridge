@@ -5,7 +5,6 @@ import bridge.domain.BridgeGame;
 import bridge.domain.BridgeMaker;
 import bridge.domain.GameStatusMap;
 import bridge.enums.RetryQuit;
-import bridge.util.ValidationUtil;
 import bridge.view.InputView;
 import bridge.view.OutputView;
 
@@ -32,7 +31,6 @@ public class GameManager {
             GameStatusMap gameStatusMap = bridgeGame.move(InputView.readMoving());
             OutputView.printMap(gameStatusMap);
         }
-
         return false;
     }
 
@@ -42,7 +40,6 @@ public class GameManager {
             bridgeGame.retry();
             return true;
         }
-
         return false;
     }
 }
