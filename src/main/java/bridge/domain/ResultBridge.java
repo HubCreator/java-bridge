@@ -1,6 +1,6 @@
 package bridge.domain;
 
-import bridge.enums.ResultFlag;
+import bridge.enums.GameStatusFlag;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +11,9 @@ public class ResultBridge {
     public static final String SUFFIX = " ]";
     public static final String DELIMITER = " | ";
 
-    private final List<ResultFlag> resultBridge;
+    private final List<GameStatusFlag> resultBridge;
 
-    private ResultBridge(List<ResultFlag> resultBridge) {
+    private ResultBridge(List<GameStatusFlag> resultBridge) {
         this.resultBridge = resultBridge;
     }
 
@@ -22,22 +22,22 @@ public class ResultBridge {
     }
 
     public void addOFlag() {
-        resultBridge.add(ResultFlag.O_FLAG);
+        resultBridge.add(GameStatusFlag.O_FLAG);
     }
 
     public void addXFlag() {
-        resultBridge.add(ResultFlag.X_FLAG);
+        resultBridge.add(GameStatusFlag.X_FLAG);
     }
 
     public void addEmptyFlag() {
-        resultBridge.add(ResultFlag.EMPTY_FLAG);
+        resultBridge.add(GameStatusFlag.EMPTY_FLAG);
     }
 
     @Override
     public String toString() {
         StringJoiner stringJoiner = new StringJoiner(DELIMITER, PREFIX, SUFFIX);
-        for (ResultFlag resultFlag : resultBridge) {
-            stringJoiner.add(resultFlag.getValue());
+        for (GameStatusFlag gameStatusFlag : resultBridge) {
+            stringJoiner.add(gameStatusFlag.getValue());
         }
         return stringJoiner.toString();
     }

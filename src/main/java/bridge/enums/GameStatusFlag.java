@@ -1,11 +1,11 @@
 package bridge.enums;
 
-public enum ResultFlag {
+public enum GameStatusFlag {
     O_FLAG("O"), X_FLAG("X"), EMPTY_FLAG(" ");
 
     private final String value;
 
-    ResultFlag(String value) {
+    GameStatusFlag(String value) {
         this.value = value;
     }
 
