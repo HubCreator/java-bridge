@@ -3,7 +3,7 @@ package bridge.manager;
 import bridge.domain.Bridge;
 import bridge.domain.BridgeGame;
 import bridge.domain.BridgeMaker;
-import bridge.domain.Result;
+import bridge.domain.GameStatusMap;
 import bridge.enums.RetryQuit;
 import bridge.view.InputView;
 import bridge.view.OutputView;
@@ -21,15 +21,15 @@ public class GameManager {
 
     public void run() {
         while (goForward() && retryOrNot()) {
-
+            //
         }
-        OutputView.printResult();
+        OutputView.printResult(bridgeGame);
     }
 
     private boolean goForward() {
         while (bridgeGame.canGoForward()) {
-            Result result = bridgeGame.move(InputView.readMoving());
-            OutputView.printMap(result);
+            GameStatusMap gameStatusMap = bridgeGame.move(InputView.readMoving());
+            OutputView.printMap(gameStatusMap);
         }
 
         return false;

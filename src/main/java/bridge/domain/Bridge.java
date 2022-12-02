@@ -37,6 +37,10 @@ public class Bridge {
         return answer == input;
     }
 
+    public boolean isSucceed(Position position) {
+        return position.isSame(bridge.size() - 1);
+    }
+
     private UpDown getByIndex(Position position) {
         return bridge.get(position.getPosition());
     }

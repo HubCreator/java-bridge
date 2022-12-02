@@ -2,11 +2,11 @@ package bridge.domain;
 
 import bridge.enums.UpDown;
 
-public class Result {
+public class GameStatusMap {
     private ResultBridge upBridge;
     private ResultBridge downBridge;
 
-    public Result() {
+    public GameStatusMap() {
         this.upBridge = ResultBridge.create();
         this.downBridge = ResultBridge.create();
     }

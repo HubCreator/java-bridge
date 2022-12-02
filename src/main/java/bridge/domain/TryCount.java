@@ -1,7 +1,7 @@
 package bridge.domain;
 
 public class TryCount {
-    public static final int INITIAL_VALUE = 0;
+    public static final int INITIAL_VALUE = 1;
     private int tryCount;
 
     public TryCount() {
@@ -10,5 +10,9 @@ public class TryCount {
 
     public void increase() {
         tryCount++;
+    }
+
+    public int getTryCount() {
+        return tryCount;
     }
 }

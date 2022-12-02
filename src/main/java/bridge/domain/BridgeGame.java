@@ -1,6 +1,9 @@
 package bridge.domain;
 
 import bridge.enums.UpDown;
+import bridge.enums.ViewMessage;
+
+import java.text.MessageFormat;
 
 /**
  * 다리 건너기 게임을 관리하는 클래스
@@ -9,13 +12,13 @@ public class BridgeGame {
 
     private final Bridge answer;
     private final Position position;
-    private final Result result;
+    private final GameStatusMap gameStatusMap;
     private TryCount tryCount;
 
     public BridgeGame(Bridge bridge) {
         this.answer = bridge;
         this.position = new Position();
-        this.result = new Result();
+        this.gameStatusMap = new GameStatusMap();
         this.tryCount = new TryCount();
     }
 
@@ -26,15 +29,15 @@ public class BridgeGame {
      *
      * @param input
      */
-    public Result move(UpDown input) {
+    public GameStatusMap move(UpDown input) {
         position.increase();
         if (answer.isMatch(position, input)) {
-            result.correctUpdate(input);
-            return result;
+            gameStatusMap.correctUpdate(input);
+            return gameStatusMap;
         }
-        result.failedUpdate(input);
+        gameStatusMap.failedUpdate(input);
         position.fail();
-        return result;
+        return gameStatusMap;
     }
 
     /**
@@ -45,10 +48,22 @@ public class BridgeGame {
     public void retry() {
         tryCount.increase();
         position.clear();
-        result.clear();
+        gameStatusMap.clear();
     }
 
     public boolean canGoForward() {
         return !position.isFail() && !answer.hasReachedToTheEnd(position);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder(ViewMessage.OUTPUT_RESULT_MESSAGE.getValue());
+        result.append(gameStatusMap);
+        if (answer.isSucceed(position)) {
+            result.append(MessageFormat.format(ViewMessage.OUTPUT_IS_SUCCEED.getValue(), ViewMessage.SUCCEED.getValue(), tryCount.getTryCount()));
+        }
+        result.append(MessageFormat.format(ViewMessage.OUTPUT_IS_SUCCEED.getValue(), ViewMessage.FAILED.getValue(), tryCount.getTryCount()));
+
+        return result.toString();
     }
 }
