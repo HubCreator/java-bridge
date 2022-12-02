@@ -51,6 +51,10 @@ public class BridgeGame {
         gameStatusMap.clear();
     }
 
+    public boolean isOver() {
+        return answer.hasReachedToTheEnd(position);
+    }
+
     public boolean canGoForward() {
         return !position.isFail() && !answer.hasReachedToTheEnd(position);
     }

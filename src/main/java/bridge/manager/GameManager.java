@@ -8,7 +8,6 @@ import bridge.enums.RetryQuit;
 import bridge.view.InputView;
 import bridge.view.OutputView;
 
-
 public class GameManager {
 
     private final BridgeGame bridgeGame;
@@ -30,8 +29,11 @@ public class GameManager {
         while (bridgeGame.canGoForward()) {
             GameStatusMap gameStatusMap = bridgeGame.move(InputView.readMoving());
             OutputView.printMap(gameStatusMap);
+            if (bridgeGame.isOver()) {
+                return false;
+            }
         }
-        return false;
+        return true;
     }
 
     private boolean retryOrNot() {
