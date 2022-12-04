@@ -1,14 +1,10 @@
 package bridge.domain;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 
 public class ResultBridge {
-    private static final String PREFIX = "[ ";
-    private static final String SUFFIX = " ]";
-    private static final String DELIMITER = " | ";
 
     private final List<GameStatusFlag> resultBridge;
 
@@ -34,7 +30,9 @@ public class ResultBridge {
 
     @Override
     public String toString() {
-        StringJoiner stringJoiner = new StringJoiner(DELIMITER, PREFIX, SUFFIX);
+        StringJoiner stringJoiner = new StringJoiner(
+                Format.DELIMITER.value, Format.PREFIX.value, Format.SUFFIX.value);
+
         for (GameStatusFlag gameStatusFlag : resultBridge) {
             stringJoiner.add(gameStatusFlag.value);
         }
@@ -49,6 +47,17 @@ public class ResultBridge {
         GameStatusFlag(String value) {
             this.value = value;
         }
+    }
 
+    private enum Format {
+        PREFIX("[ "),
+        SUFFIX(" ]"),
+        DELIMITER(" | ");
+
+        private final String value;
+
+        Format(String value) {
+            this.value = value;
+        }
     }
 }
