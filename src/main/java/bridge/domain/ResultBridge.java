@@ -1,6 +1,5 @@
 package bridge.domain;
 
-import bridge.enums.GameStatusFlag;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,15 +20,15 @@ public class ResultBridge {
         return new ResultBridge(new ArrayList<>());
     }
 
-     void addOFlag() {
+    void addOFlag() {
         resultBridge.add(GameStatusFlag.O_FLAG);
     }
 
-     void addXFlag() {
+    void addXFlag() {
         resultBridge.add(GameStatusFlag.X_FLAG);
     }
 
-     void addEmptyFlag() {
+    void addEmptyFlag() {
         resultBridge.add(GameStatusFlag.EMPTY_FLAG);
     }
 
@@ -37,8 +36,19 @@ public class ResultBridge {
     public String toString() {
         StringJoiner stringJoiner = new StringJoiner(DELIMITER, PREFIX, SUFFIX);
         for (GameStatusFlag gameStatusFlag : resultBridge) {
-            stringJoiner.add(gameStatusFlag.getValue());
+            stringJoiner.add(gameStatusFlag.value);
         }
         return stringJoiner.toString();
+    }
+
+    private enum GameStatusFlag {
+        O_FLAG("O"), X_FLAG("X"), EMPTY_FLAG(" ");
+
+        private final String value;
+
+        GameStatusFlag(String value) {
+            this.value = value;
+        }
+
     }
 }

@@ -9,6 +9,7 @@ public final class ValidationUtil {
     private ValidationUtil() {
 
     }
+
     public static int validate(String input) {
         int value = isDigit(input);
         if (ConstVariable.MIN.isLowerThan(value) || ConstVariable.MAX.isGreaterThan(value)) {
