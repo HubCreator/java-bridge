@@ -7,11 +7,12 @@ import java.text.MessageFormat;
 public class GameStatusMap {
     private static final String messageFormat = "{0}\n{1}";
 
-    private ResultBridge upBridge;
-    private ResultBridge downBridge;
+    private final ResultBridge upBridge;
+    private final ResultBridge downBridge;
 
     public GameStatusMap() {
-        clear();
+        this.upBridge = new ResultBridge();
+        this.downBridge = new ResultBridge();
     }
 
     void correctUpdate(UpDown input) {
@@ -35,8 +36,8 @@ public class GameStatusMap {
     }
 
     void clear() {
-        this.upBridge = ResultBridge.create();
-        this.downBridge = ResultBridge.create();
+        upBridge.clear();
+        downBridge.clear();
     }
 
     @Override

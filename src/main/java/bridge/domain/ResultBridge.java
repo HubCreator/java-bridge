@@ -6,14 +6,10 @@ import java.util.StringJoiner;
 
 public class ResultBridge {
 
-    private final List<GameStatusFlag> resultBridge;
+    private final List<GameStatusFlag> resultBridge = new ArrayList<>();
 
-    private ResultBridge(List<GameStatusFlag> resultBridge) {
-        this.resultBridge = resultBridge;
-    }
-
-    public static ResultBridge create() {
-        return new ResultBridge(new ArrayList<>());
+    public  void clear() {
+        resultBridge.clear();
     }
 
     void addOFlag() {
