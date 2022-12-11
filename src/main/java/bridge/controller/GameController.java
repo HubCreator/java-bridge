@@ -1,6 +1,5 @@
 package bridge.controller;
 
-import bridge.BridgeRandomNumberGenerator;
 import bridge.domain.BridgeGame;
 import bridge.domain.BridgeMaker;
 import bridge.dto.input.ReadBridgeSizeDto;
@@ -20,14 +19,14 @@ public class GameController {
     private final Map<GameStatus, Supplier<GameStatus>> statusMap;
     private BridgeGame bridgeGame;
 
-    public GameController(IOViewResolver ioViewResolver) {
+    public GameController(IOViewResolver ioViewResolver, BridgeMaker bridgeMaker) {
         this.ioViewResolver = ioViewResolver;
         statusMap = new EnumMap<>(GameStatus.class);
-        initGameStatusMap();
+        initGameStatusMap(bridgeMaker);
     }
 
-    private void initGameStatusMap() {
-        statusMap.put(GameStatus.MAKE_BRIDGE, this::makeBridge);
+    private void initGameStatusMap(BridgeMaker bridgeMaker) {
+        statusMap.put(GameStatus.MAKE_BRIDGE, () -> makeBridge(bridgeMaker));
         statusMap.put(GameStatus.GAME_PLAY, this::gamePlay);
         statusMap.put(GameStatus.GAME_OVER, this::gameOver);
         statusMap.put(GameStatus.GAME_EXIT, this::gameExit);
@@ -42,8 +41,7 @@ public class GameController {
         }
     }
 
-    private GameStatus makeBridge() {
-        BridgeMaker bridgeMaker = new BridgeMaker(new BridgeRandomNumberGenerator());
+    private GameStatus makeBridge(BridgeMaker bridgeMaker) {
         ReadBridgeSizeDto readBridgeSizeDto = ioViewResolver.inputViewResolve(ReadBridgeSizeDto.class);
         bridgeGame = new BridgeGame(readBridgeSizeDto, bridgeMaker);
         return GameStatus.GAME_PLAY;
