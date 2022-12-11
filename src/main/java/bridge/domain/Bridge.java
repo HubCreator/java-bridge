@@ -1,5 +1,6 @@
 package bridge.domain;
 
+import bridge.dto.input.ReadBridgeSizeDto;
 import bridge.enums.UpDown;
 
 import java.util.ArrayList;

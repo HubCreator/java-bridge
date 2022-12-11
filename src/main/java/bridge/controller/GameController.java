@@ -1,26 +1,26 @@
 package bridge.controller;
 
 import bridge.BridgeRandomNumberGenerator;
-import bridge.domain.Bridge;
 import bridge.domain.BridgeGame;
 import bridge.domain.BridgeMaker;
 import bridge.domain.GameStatusMap;
+import bridge.dto.input.ReadBridgeSizeDto;
 import bridge.enums.GameStatus;
-import bridge.enums.ViewMessage;
+import bridge.view.IOViewResolver;
 import bridge.view.InputView;
 import bridge.view.OutputView;
 
 import java.util.EnumMap;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
 public class GameController {
+    private final IOViewResolver ioViewResolver;
     private final Map<GameStatus, Supplier<GameStatus>> statusMap;
     private BridgeGame bridgeGame;
 
-    public GameController() {
-        System.out.println(ViewMessage.START_MESSAGE);
+    public GameController(IOViewResolver ioViewResolver) {
+        this.ioViewResolver = ioViewResolver;
         statusMap = new EnumMap<>(GameStatus.class);
         initGameStatusMap();
     }
@@ -43,9 +43,8 @@ public class GameController {
 
     private GameStatus makeBridge() {
         BridgeMaker bridgeMaker = new BridgeMaker(new BridgeRandomNumberGenerator());
-        List<String> bridge = bridgeMaker.makeBridge(InputView.readBridgeSize());
-        Bridge result = Bridge.create(bridge);
-        bridgeGame = new BridgeGame(result);
+        ReadBridgeSizeDto inputDto = ioViewResolver.inputViewResolve(ReadBridgeSizeDto.class);
+        bridgeGame = new BridgeGame(inputDto, bridgeMaker);
         return GameStatus.GAME_PLAY;
     }
 

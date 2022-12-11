@@ -1,5 +1,6 @@
 package bridge.view;
 
+import bridge.dto.input.ReadBridgeSizeDto;
 import bridge.enums.ConstVariable;
 import bridge.enums.ErrorMessage;
 import bridge.enums.RetryQuit;
@@ -12,12 +13,23 @@ import camp.nextstep.edu.missionutils.Console;
  */
 public class InputView {
 
+    private InputView() {
+    }
+
+    private static class InputViewSingletonHelper {
+        private static final InputView INPUT_VIEW = new InputView();
+    }
+
+    public static InputView getInstance() {
+        return InputViewSingletonHelper.INPUT_VIEW;
+    }
+
     /**
      * 다리의 길이를 입력받는다.
      */
-    public static int readBridgeSize() {
+    public ReadBridgeSizeDto readBridgeSize() {
         printMessage(ViewMessage.INPUT_BRIDGE_LENGTH);
-        return validateBridgeLength(Console.readLine());
+        return new ReadBridgeSizeDto(validateBridgeLength(Console.readLine()));
     }
 
     /**
@@ -64,4 +76,6 @@ public class InputView {
     public static RetryQuit isValidRetryQuit(String input) {
         return RetryQuit.map(input);
     }
+
+
 }

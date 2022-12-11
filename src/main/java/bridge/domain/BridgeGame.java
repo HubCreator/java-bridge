@@ -1,10 +1,12 @@
 package bridge.domain;
 
+import bridge.dto.input.ReadBridgeSizeDto;
 import bridge.enums.RetryQuit;
 import bridge.enums.UpDown;
 import bridge.enums.ViewMessage;
 
 import java.text.MessageFormat;
+import java.util.List;
 
 /**
  * 다리 건너기 게임을 관리하는 클래스
@@ -18,6 +20,15 @@ public class BridgeGame {
 
     public BridgeGame(Bridge bridge) {
         this.answer = bridge;
+        this.position = new Position();
+        this.gameStatusMap = new GameStatusMap();
+        this.tryCount = new TryCount();
+    }
+
+    public BridgeGame(ReadBridgeSizeDto inputDto, BridgeMaker bridgeMaker) {
+        List<String> bridge = bridgeMaker.makeBridge(inputDto.getSize());
+
+        this.answer = Bridge.create(bridge);
         this.position = new Position();
         this.gameStatusMap = new GameStatusMap();
         this.tryCount = new TryCount();

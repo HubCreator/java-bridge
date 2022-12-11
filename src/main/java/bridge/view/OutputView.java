@@ -2,11 +2,25 @@ package bridge.view;
 
 import bridge.domain.BridgeGame;
 import bridge.domain.GameStatusMap;
+import bridge.enums.ViewMessage;
 
 /**
  * 사용자에게 게임 진행 상황과 결과를 출력하는 역할을 한다.
  */
 public class OutputView {
+
+    private static class OutputViewSingletonHelper {
+        private static final OutputView OUTPUT_VIEW = new OutputView();
+    }
+
+    public static bridge.view.OutputView getInstance() {
+        return OutputViewSingletonHelper.OUTPUT_VIEW;
+    }
+
+    private OutputView() {
+        System.out.println(ViewMessage.START_MESSAGE);
+        System.out.println();
+    }
 
     /**
      * 현재까지 이동한 다리의 상태를 정해진 형식에 맞춰 출력한다.
