@@ -6,7 +6,6 @@ import bridge.domain.BridgeGame;
 import bridge.domain.BridgeMaker;
 import bridge.domain.GameStatusMap;
 import bridge.enums.GameStatus;
-import bridge.enums.RetryQuit;
 import bridge.enums.ViewMessage;
 import bridge.view.InputView;
 import bridge.view.OutputView;
@@ -57,11 +56,8 @@ public class GameController {
     }
 
     private GameStatus gameOver() {
-        if (RetryQuit.RETRY.isEqualTo(InputView.readGameCommand())) {
-            bridgeGame.retry();
-            return GameStatus.GAME_PLAY;
-        }
-        return GameStatus.GAME_EXIT;
+        boolean isRetry = bridgeGame.retry(InputView.readGameCommand());
+        return GameStatus.retryOrNot(isRetry);
     }
 
     private GameStatus gameExit() {

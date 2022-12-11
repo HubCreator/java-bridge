@@ -1,5 +1,6 @@
 package bridge.domain;
 
+import bridge.enums.RetryQuit;
 import bridge.enums.UpDown;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -50,7 +51,7 @@ class BridgeGameTest {
         GameStatusMap gameStatusMap2 = bridgeGame.move(UpDown.DOWN);
         assertThat(gameStatusMap2.toString()).isEqualTo("[ O |   ]\n[   | X ]");
 
-        bridgeGame.retry();
+        bridgeGame.retry(RetryQuit.RETRY);
         GameStatusMap gameStatusMap3 = bridgeGame.move(UpDown.UP);
         assertThat(gameStatusMap3.toString()).isEqualTo("[ O ]\n[   ]");
     }

@@ -20,4 +20,11 @@ public enum GameStatus {
     public boolean playable() {
         return this != GameStatus.APPLICATION_EXIT;
     }
+
+    public static GameStatus retryOrNot(boolean isRetry) {
+        if (isRetry) {
+            return GameStatus.GAME_PLAY;
+        }
+        return GameStatus.GAME_EXIT;
+    }
 }

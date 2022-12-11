@@ -1,5 +1,6 @@
 package bridge.domain;
 
+import bridge.enums.RetryQuit;
 import bridge.enums.UpDown;
 import bridge.enums.ViewMessage;
 
@@ -45,10 +46,14 @@ public class BridgeGame {
      * <p>
      * 재시작을 위해 필요한 메서드의 반환 타입(return type), 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
      */
-    public void retry() {
-        tryCount.increase();
-        position.clear();
-        gameStatusMap.clear();
+    public boolean retry(RetryQuit input) {
+        if (RetryQuit.RETRY == input) {
+            tryCount.increase();
+            position.clear();
+            gameStatusMap.clear();
+            return true;
+        }
+        return false;
     }
 
     public boolean isOver() {
