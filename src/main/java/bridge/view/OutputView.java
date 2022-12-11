@@ -18,7 +18,7 @@ public class OutputView {
     }
 
     private OutputView() {
-        System.out.println(ViewMessage.START_MESSAGE);
+        System.out.println(ViewMessage.START_MESSAGE.getValue());
         System.out.println();
     }
 

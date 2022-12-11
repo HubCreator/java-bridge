@@ -3,7 +3,6 @@ package bridge.controller;
 import bridge.BridgeRandomNumberGenerator;
 import bridge.domain.BridgeGame;
 import bridge.domain.BridgeMaker;
-import bridge.domain.GameStatusMap;
 import bridge.dto.input.ReadBridgeSizeDto;
 import bridge.dto.input.ReadMovingDto;
 import bridge.dto.output.PrintMapDto;
@@ -52,8 +51,8 @@ public class GameController {
 
     private GameStatus gamePlay() {
         ReadMovingDto readMovingDto = ioViewResolver.inputViewResolve(ReadMovingDto.class);
-        PrintMapDto printMapDto = bridgeGame.move(readMovingDto.getUpDown());
-        ioViewResolver.outputViewResolve(printMapDto.getGameStatusMap());
+        PrintMapDto printMapDto = bridgeGame.move(readMovingDto);
+        ioViewResolver.outputViewResolve(printMapDto);
         return GameStatus.getNextStatus(bridgeGame.canGoForward(), bridgeGame.isOver());
     }
 
