@@ -23,11 +23,7 @@ public class Bridge {
     private static List<UpDown> mapBridge(List<String> bridge) {
         List<UpDown> result = new ArrayList<>();
         for (String input : bridge) {
-            if (UpDown.UP.isMatchFlag(input)) {
-                result.add(UpDown.UP);
-                continue;
-            }
-            result.add(UpDown.DOWN);
+            result.add(UpDown.map(input));
         }
         return result;
     }

@@ -16,25 +16,25 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public class GameController {
-    private final Map<GameStatus, Supplier<GameStatus>> gameStatusMappings;
+    private final Map<GameStatus, Supplier<GameStatus>> statusMap;
     private BridgeGame bridgeGame;
 
     public GameController() {
         System.out.println(ViewMessage.START_MESSAGE);
-        gameStatusMappings = new EnumMap<>(GameStatus.class);
-        initGameStatusMappings();
+        statusMap = new EnumMap<>(GameStatus.class);
+        initGameStatusMap();
     }
 
-    private void initGameStatusMappings() {
-        gameStatusMappings.put(GameStatus.MAKE_BRIDGE, this::makeBridge);
-        gameStatusMappings.put(GameStatus.GAME_PLAY, this::gamePlay);
-        gameStatusMappings.put(GameStatus.GAME_OVER, this::gameOver);
-        gameStatusMappings.put(GameStatus.GAME_EXIT, this::gameExit);
+    private void initGameStatusMap() {
+        statusMap.put(GameStatus.MAKE_BRIDGE, this::makeBridge);
+        statusMap.put(GameStatus.GAME_PLAY, this::gamePlay);
+        statusMap.put(GameStatus.GAME_OVER, this::gameOver);
+        statusMap.put(GameStatus.GAME_EXIT, this::gameExit);
     }
 
     public GameStatus process(GameStatus gameStatus) {
         try {
-            return gameStatusMappings.get(gameStatus).get();
+            return statusMap.get(gameStatus).get();
         } catch (IllegalArgumentException exception) {
             System.out.println(exception.getMessage());
             return gameStatus;

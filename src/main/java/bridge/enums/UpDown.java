@@ -21,7 +21,7 @@ public enum UpDown {
     public static UpDown map(String flag) {
         validate(flag);
 
-        if (UP.flag.equals(flag)) {
+        if (UP.isMatchFlag(flag)) {
             return UP;
         }
         return DOWN;
