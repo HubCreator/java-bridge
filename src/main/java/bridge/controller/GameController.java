@@ -5,6 +5,8 @@ import bridge.domain.BridgeGame;
 import bridge.domain.BridgeMaker;
 import bridge.domain.GameStatusMap;
 import bridge.dto.input.ReadBridgeSizeDto;
+import bridge.dto.input.ReadMovingDto;
+import bridge.dto.output.PrintMapDto;
 import bridge.enums.GameStatus;
 import bridge.view.IOViewResolver;
 import bridge.view.InputView;
@@ -43,14 +45,15 @@ public class GameController {
 
     private GameStatus makeBridge() {
         BridgeMaker bridgeMaker = new BridgeMaker(new BridgeRandomNumberGenerator());
-        ReadBridgeSizeDto inputDto = ioViewResolver.inputViewResolve(ReadBridgeSizeDto.class);
-        bridgeGame = new BridgeGame(inputDto, bridgeMaker);
+        ReadBridgeSizeDto readBridgeSizeDto = ioViewResolver.inputViewResolve(ReadBridgeSizeDto.class);
+        bridgeGame = new BridgeGame(readBridgeSizeDto, bridgeMaker);
         return GameStatus.GAME_PLAY;
     }
 
     private GameStatus gamePlay() {
-        GameStatusMap gameStatusMap = bridgeGame.move(InputView.readMoving());
-        OutputView.printMap(gameStatusMap);
+        ReadMovingDto readMovingDto = ioViewResolver.inputViewResolve(ReadMovingDto.class);
+        PrintMapDto printMapDto = bridgeGame.move(readMovingDto.getUpDown());
+        ioViewResolver.outputViewResolve(printMapDto.getGameStatusMap());
         return GameStatus.getNextStatus(bridgeGame.canGoForward(), bridgeGame.isOver());
     }
 

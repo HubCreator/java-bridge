@@ -1,6 +1,7 @@
 package bridge.view;
 
 import bridge.dto.input.ReadBridgeSizeDto;
+import bridge.dto.input.ReadMovingDto;
 import bridge.enums.ConstVariable;
 import bridge.enums.ErrorMessage;
 import bridge.enums.RetryQuit;
@@ -35,9 +36,9 @@ public class InputView {
     /**
      * 사용자가 이동할 칸을 입력받는다.
      */
-    public static UpDown readMoving() {
+    public ReadMovingDto readMoving() {
         printMessage(ViewMessage.INPUT_UP_OR_DOWN);
-        return isValidUpDown(Console.readLine());
+        return new ReadMovingDto(isValidUpDown(Console.readLine()));
     }
 
     /**

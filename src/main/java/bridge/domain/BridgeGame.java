@@ -1,6 +1,7 @@
 package bridge.domain;
 
 import bridge.dto.input.ReadBridgeSizeDto;
+import bridge.dto.output.PrintMapDto;
 import bridge.enums.RetryQuit;
 import bridge.enums.UpDown;
 import bridge.enums.ViewMessage;
@@ -41,15 +42,15 @@ public class BridgeGame {
      *
      * @param input
      */
-    public GameStatusMap move(UpDown input) {
+    public PrintMapDto move(UpDown input) {
         position.increase();
         if (answer.isMatch(position, input)) {
             gameStatusMap.correctUpdate(input);
-            return gameStatusMap;
+            return new PrintMapDto(gameStatusMap);
         }
         gameStatusMap.failedUpdate(input);
         position.fail();
-        return gameStatusMap;
+        return new PrintMapDto(gameStatusMap);
     }
 
     /**

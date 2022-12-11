@@ -1,6 +1,8 @@
 package bridge.view;
 
 import bridge.dto.input.ReadBridgeSizeDto;
+import bridge.dto.input.ReadMovingDto;
+import bridge.dto.output.PrintMapDto;
 import bridge.view.exception.NotFoundViewException;
 
 import java.util.HashMap;
@@ -19,12 +21,12 @@ public class IOViewResolver {
 
     private void initInputViewMappings(InputView inputView) {
         inputViewMap.put(ReadBridgeSizeDto.class, inputView::readBridgeSize);
-//        inputViewMap.put(ReadMovingDto.class, inputView::readMoving);
+        inputViewMap.put(ReadMovingDto.class, inputView::readMoving);
 //        inputViewMap.put(ReadGameCommandDto.class, inputView::readGameCommand);
     }
 
     private void initOutputViewMappings(OutputView outputView) {
-//        outputViewMap.put(PrintMapDto.class, dto -> outputView.printMap((PrintMapDto) dto));
+        outputViewMap.put(PrintMapDto.class, dto -> outputView.printMap((PrintMapDto) dto));
 //        outputViewMap.put(PrintResultDto.class, dto -> outputView.printResult((PrintResultDto) dto));
 //        outputViewMap.put(PrintExceptionDto.class, dto -> outputView.printException((PrintExceptionDto) dto));
     }
