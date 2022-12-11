@@ -4,12 +4,12 @@ import bridge.BridgeRandomNumberGenerator;
 import bridge.domain.BridgeGame;
 import bridge.domain.BridgeMaker;
 import bridge.dto.input.ReadBridgeSizeDto;
+import bridge.dto.input.ReadGameCommandDto;
 import bridge.dto.input.ReadMovingDto;
 import bridge.dto.output.PrintMapDto;
+import bridge.dto.output.PrintResultDto;
 import bridge.enums.GameStatus;
 import bridge.view.IOViewResolver;
-import bridge.view.InputView;
-import bridge.view.OutputView;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -57,12 +57,14 @@ public class GameController {
     }
 
     private GameStatus gameOver() {
-        boolean isRetry = bridgeGame.retry(InputView.readGameCommand());
+        ReadGameCommandDto readCommandDto = ioViewResolver.inputViewResolve(ReadGameCommandDto.class);
+        boolean isRetry = bridgeGame.retry(readCommandDto);
         return GameStatus.retryOrNot(isRetry);
     }
 
     private GameStatus gameExit() {
-        OutputView.printResult(bridgeGame);
+        PrintResultDto printResultDto = bridgeGame.getResult();
+        ioViewResolver.outputViewResolve(printResultDto);
         return GameStatus.APPLICATION_EXIT;
     }
 }

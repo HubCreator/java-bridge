@@ -8,11 +8,11 @@ public class TryCount {
         this.tryCount = INITIAL_VALUE;
     }
 
-    void increase() {
+    public void increase() {
         tryCount++;
     }
 
-    int getTryCount() {
+    public int getTryCount() {
         return tryCount;
     }
 }

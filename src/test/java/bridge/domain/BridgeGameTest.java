@@ -1,5 +1,6 @@
 package bridge.domain;
 
+import bridge.dto.input.ReadGameCommandDto;
 import bridge.dto.input.ReadMovingDto;
 import bridge.dto.output.PrintMapDto;
 import bridge.enums.RetryQuit;
@@ -53,7 +54,7 @@ class BridgeGameTest {
         PrintMapDto dto2 = bridgeGame.move(new ReadMovingDto(UpDown.DOWN));
         assertThat(dto2.getGameStatusMap().toString()).isEqualTo("[ O |   ]\n[   | X ]");
 
-        bridgeGame.retry(RetryQuit.RETRY);
+        bridgeGame.retry(new ReadGameCommandDto(RetryQuit.RETRY));
         PrintMapDto dto3 = bridgeGame.move(new ReadMovingDto(UpDown.UP));
         assertThat(dto3.getGameStatusMap().toString()).isEqualTo("[ O ]\n[   ]");
     }

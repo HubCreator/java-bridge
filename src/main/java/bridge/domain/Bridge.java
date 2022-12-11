@@ -38,7 +38,7 @@ public class Bridge {
         return answer.isEqualTo(input);
     }
 
-    boolean isSucceed(Position position) {
+    public boolean isSucceed(Position position) {
         return position.isSame(bridge.size() - 1);
     }
 

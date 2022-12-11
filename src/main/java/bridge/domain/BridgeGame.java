@@ -1,13 +1,12 @@
 package bridge.domain;
 
 import bridge.dto.input.ReadBridgeSizeDto;
+import bridge.dto.input.ReadGameCommandDto;
 import bridge.dto.input.ReadMovingDto;
 import bridge.dto.output.PrintMapDto;
+import bridge.dto.output.PrintResultDto;
 import bridge.enums.RetryQuit;
-import bridge.enums.UpDown;
-import bridge.enums.ViewMessage;
 
-import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -59,8 +58,8 @@ public class BridgeGame {
      * <p>
      * 재시작을 위해 필요한 메서드의 반환 타입(return type), 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
      */
-    public boolean retry(RetryQuit input) {
-        if (RetryQuit.RETRY == input) {
+    public boolean retry(ReadGameCommandDto dto) {
+        if (RetryQuit.RETRY == dto.getRetryQuit()) {
             tryCount.increase();
             position.clear();
             gameStatusMap.clear();
@@ -77,15 +76,7 @@ public class BridgeGame {
         return !position.isFail() && !answer.hasReachedToTheEnd(position);
     }
 
-    @Override
-    public String toString() {
-        StringBuilder result = new StringBuilder(ViewMessage.OUTPUT_RESULT_MESSAGE.getValue());
-        result.append(gameStatusMap);
-        if (answer.isSucceed(position)) {
-            result.append(MessageFormat.format(ViewMessage.OUTPUT_IS_SUCCEED.getValue(), ViewMessage.SUCCEED.getValue(), tryCount.getTryCount()));
-            return result.toString();
-        }
-        result.append(MessageFormat.format(ViewMessage.OUTPUT_IS_SUCCEED.getValue(), ViewMessage.FAILED.getValue(), tryCount.getTryCount()));
-        return result.toString();
+    public PrintResultDto getResult() {
+        return new PrintResultDto(gameStatusMap, answer, position, tryCount);
     }
 }

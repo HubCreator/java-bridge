@@ -1,6 +1,7 @@
 package bridge.view;
 
 import bridge.dto.input.ReadBridgeSizeDto;
+import bridge.dto.input.ReadGameCommandDto;
 import bridge.dto.input.ReadMovingDto;
 import bridge.enums.ConstVariable;
 import bridge.enums.ErrorMessage;
@@ -44,9 +45,9 @@ public class InputView {
     /**
      * 사용자가 게임을 다시 시도할지 종료할지 여부를 입력받는다.
      */
-    public static RetryQuit readGameCommand() {
+    public ReadGameCommandDto readGameCommand() {
         printMessage(ViewMessage.INPUT_RETRY_OR_QUIT);
-        return isValidRetryQuit(Console.readLine());
+        return new ReadGameCommandDto(isValidRetryQuit(Console.readLine()));
     }
 
     private static void printMessage(ViewMessage message) {
