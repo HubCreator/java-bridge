@@ -7,6 +7,16 @@ public enum GameStatus {
     GAME_EXIT,
     APPLICATION_EXIT;
 
+    public static GameStatus getNextStatus(boolean canGoForward, boolean isOver) {
+        if (isOver) {
+            return GAME_EXIT;
+        }
+        if (!canGoForward) {
+            return GameStatus.GAME_OVER;
+        }
+        return GameStatus.GAME_PLAY;
+    }
+
     public boolean playable() {
         return this != GameStatus.APPLICATION_EXIT;
     }

@@ -46,13 +46,7 @@ public class GameController {
     private GameStatus gamePlay() {
         GameStatusMap gameStatusMap = bridgeGame.move(InputView.readMoving());
         OutputView.printMap(gameStatusMap);
-        if (bridgeGame.isOver()) {
-            return GameStatus.GAME_EXIT;
-        }
-        if (!bridgeGame.canGoForward()) {
-            return GameStatus.GAME_OVER;
-        }
-        return GameStatus.GAME_PLAY;
+        return GameStatus.getNextStatus(bridgeGame.canGoForward(), bridgeGame.isOver());
     }
 
     private GameStatus gameOver() {
