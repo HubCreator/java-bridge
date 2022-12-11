@@ -1,6 +1,6 @@
 package bridge.enums;
 
-import bridge.util.ValidationUtil;
+import bridge.view.InputView;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -20,7 +20,7 @@ class UpDownTest {
         @ParameterizedTest
         @ValueSource(strings = {"U", "D"})
         void case1(String value) {
-            assertThatCode(() -> ValidationUtil.isValidUpDown(value))
+            assertThatCode(() -> InputView.isValidUpDown(value))
                     .doesNotThrowAnyException();
         }
 
@@ -28,7 +28,7 @@ class UpDownTest {
         @ParameterizedTest
         @ValueSource(strings = {"R", "Q", "!", "123", ""})
         void case2(String value) {
-            assertThatThrownBy(() -> ValidationUtil.isValidUpDown(value))
+            assertThatThrownBy(() -> InputView.isValidUpDown(value))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage(ErrorMessage.INVALID_INPUT_UP_DOWN.getValue());
         }

@@ -1,9 +1,10 @@
 package bridge.view;
 
+import bridge.enums.ConstVariable;
+import bridge.enums.ErrorMessage;
 import bridge.enums.RetryQuit;
 import bridge.enums.UpDown;
 import bridge.enums.ViewMessage;
-import bridge.util.ValidationUtil;
 import camp.nextstep.edu.missionutils.Console;
 
 /**
@@ -15,14 +16,8 @@ public class InputView {
      * 다리의 길이를 입력받는다.
      */
     public static int readBridgeSize() {
-        printMessage(ViewMessage.START_MESSAGE, ViewMessage.INPUT_BRIDGE_LENGTH);
-        while (true) {
-            try {
-                return ValidationUtil.validate(Console.readLine());
-            } catch (IllegalArgumentException exception) {
-                printMessage(exception);
-            }
-        }
+        printMessage(ViewMessage.INPUT_BRIDGE_LENGTH);
+        return validateBridgeLength(Console.readLine());
     }
 
     /**
@@ -30,13 +25,7 @@ public class InputView {
      */
     public static UpDown readMoving() {
         printMessage(ViewMessage.INPUT_UP_OR_DOWN);
-        while (true) {
-            try {
-                return ValidationUtil.isValidUpDown(Console.readLine());
-            } catch (IllegalArgumentException exception) {
-                printMessage(exception);
-            }
-        }
+        return isValidUpDown(Console.readLine());
     }
 
     /**
@@ -44,26 +33,35 @@ public class InputView {
      */
     public static RetryQuit readGameCommand() {
         printMessage(ViewMessage.INPUT_RETRY_OR_QUIT);
-        while (true) {
-            try {
-                return ValidationUtil.isValidRetryQuit(Console.readLine());
-            } catch (IllegalArgumentException exception) {
-                printMessage(exception);
-            }
-        }
+        return isValidRetryQuit(Console.readLine());
     }
 
     private static void printMessage(ViewMessage message) {
         System.out.println(message.getValue());
     }
 
-    private static void printMessage(ViewMessage... messages) {
-        for (ViewMessage message : messages) {
-            printMessage(message);
+
+    public static int validateBridgeLength(String input) {
+        int value = isDigit(input);
+        if (ConstVariable.MIN.isLowerThan(value) || ConstVariable.MAX.isGreaterThan(value)) {
+            throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT_RANGE.getValue());
+        }
+        return value;
+    }
+
+    private static int isDigit(String input) {
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT_DIGIT.getValue(), e);
         }
     }
 
-    private static void printMessage(IllegalArgumentException exception) {
-        System.out.println(exception.getMessage());
+    public static UpDown isValidUpDown(String input) {
+        return UpDown.map(input);
+    }
+
+    public static RetryQuit isValidRetryQuit(String input) {
+        return RetryQuit.map(input);
     }
 }

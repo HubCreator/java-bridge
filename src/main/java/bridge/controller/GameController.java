@@ -7,6 +7,7 @@ import bridge.domain.BridgeMaker;
 import bridge.domain.GameStatusMap;
 import bridge.enums.GameStatus;
 import bridge.enums.RetryQuit;
+import bridge.enums.ViewMessage;
 import bridge.view.InputView;
 import bridge.view.OutputView;
 
@@ -20,6 +21,7 @@ public class GameController {
     private BridgeGame bridgeGame;
 
     public GameController() {
+        System.out.println(ViewMessage.START_MESSAGE);
         gameStatusMappings = new EnumMap<>(GameStatus.class);
         initGameStatusMappings();
     }
@@ -32,7 +34,12 @@ public class GameController {
     }
 
     public GameStatus process(GameStatus gameStatus) {
-        return gameStatusMappings.get(gameStatus).get();
+        try {
+            return gameStatusMappings.get(gameStatus).get();
+        } catch (IllegalArgumentException exception) {
+            System.out.println(exception.getMessage());
+            return gameStatus;
+        }
     }
 
     private GameStatus makeBridge() {

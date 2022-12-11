@@ -1,6 +1,6 @@
 package bridge.enums;
 
-import bridge.util.ValidationUtil;
+import bridge.view.InputView;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -19,7 +19,7 @@ class RetryQuitTest {
         @ParameterizedTest
         @ValueSource(strings = {"R", "Q"})
         void case1(String value) {
-            assertThatCode(() -> ValidationUtil.isValidRetryQuit(value))
+            assertThatCode(() -> InputView.isValidRetryQuit(value))
                     .doesNotThrowAnyException();
         }
 
@@ -27,7 +27,7 @@ class RetryQuitTest {
         @ParameterizedTest
         @ValueSource(strings = {"U", "D", "!", "123", ""})
         void case2(String value) {
-            assertThatThrownBy(() -> ValidationUtil.isValidRetryQuit(value))
+            assertThatThrownBy(() -> InputView.isValidRetryQuit(value))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage(ErrorMessage.INVALID_INPUT_RETRY_QUIT.getValue());
         }

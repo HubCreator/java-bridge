@@ -1,6 +1,7 @@
 package bridge.util;
 
 import bridge.enums.ErrorMessage;
+import bridge.view.InputView;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -25,7 +26,7 @@ class ValidationUtilTest {
             @ParameterizedTest
             @ValueSource(strings = {"3", "20"})
             void it_returns_bridge(String value) {
-                assertThatCode(() -> ValidationUtil.validate(value))
+                assertThatCode(() -> InputView.validateBridgeLength(value))
                         .doesNotThrowAnyException();
             }
         }
@@ -38,7 +39,7 @@ class ValidationUtilTest {
             @ParameterizedTest
             @ValueSource(strings = {"2", "21", "-1"})
             void it_returns_exception1(String value) {
-                assertThatThrownBy(() -> ValidationUtil.validate(value))
+                assertThatThrownBy(() -> InputView.validateBridgeLength(value))
                         .isInstanceOf(IllegalArgumentException.class)
                         .hasMessage(ErrorMessage.INVALID_INPUT_RANGE.getValue());
             }
@@ -46,7 +47,7 @@ class ValidationUtilTest {
             @DisplayName("입력 숫자 범위를 초과한 입력이 들어오면 예외를 발생시킨다.")
             @Test
             void it_returns_exception2() {
-                assertThatThrownBy(() -> ValidationUtil.validate("999999999999999999999999999999999999999999999999999999"))
+                assertThatThrownBy(() -> InputView.validateBridgeLength("999999999999999999999999999999999999999999999999999999"))
                         .isInstanceOf(IllegalArgumentException.class)
                         .hasMessage(ErrorMessage.INVALID_INPUT_DIGIT.getValue());
             }
@@ -55,7 +56,7 @@ class ValidationUtilTest {
             @ParameterizedTest
             @ValueSource(strings = {"*", "", "!"})
             void it_returns_exception3(String value) {
-                assertThatThrownBy(() -> ValidationUtil.validate(value))
+                assertThatThrownBy(() -> InputView.validateBridgeLength(value))
                         .isInstanceOf(IllegalArgumentException.class)
                         .hasMessage(ErrorMessage.INVALID_INPUT_DIGIT.getValue());
             }
