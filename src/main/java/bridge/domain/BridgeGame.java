@@ -1,11 +1,8 @@
 package bridge.domain;
 
-import bridge.dto.input.ReadBridgeSizeDto;
-import bridge.dto.input.ReadGameCommandDto;
-import bridge.dto.input.ReadMovingDto;
-import bridge.dto.output.PrintMapDto;
 import bridge.dto.output.PrintResultDto;
 import bridge.enums.RetryQuit;
+import bridge.enums.UpDown;
 
 import java.util.List;
 
@@ -26,9 +23,8 @@ public class BridgeGame {
         this.tryCount = new TryCount();
     }
 
-    public BridgeGame(ReadBridgeSizeDto inputDto, BridgeMaker bridgeMaker) {
-        List<String> bridge = bridgeMaker.makeBridge(inputDto.getSize());
-
+    public BridgeGame(int size, BridgeMaker bridgeMaker) {
+        List<String> bridge = bridgeMaker.makeBridge(size);
         this.answer = Bridge.create(bridge);
         this.position = new Position();
         this.gameStatusMap = new GameStatusMap();
@@ -40,17 +36,17 @@ public class BridgeGame {
      * <p>
      * 이동을 위해 필요한 메서드의 반환 타입(return type), 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
      *
-     * @param dto
+     * @param input
      */
-    public PrintMapDto move(ReadMovingDto dto) {
+    public GameStatusMap move(UpDown input) {
         position.increase();
-        if (answer.isMatch(position, dto.getUpDown())) {
-            gameStatusMap.correctUpdate(dto.getUpDown());
-            return new PrintMapDto(gameStatusMap);
+        if (answer.isMatch(position, input)) {
+            gameStatusMap.correctUpdate(input);
+            return gameStatusMap;
         }
-        gameStatusMap.failedUpdate(dto.getUpDown());
+        gameStatusMap.failedUpdate(input);
         position.fail();
-        return new PrintMapDto(gameStatusMap);
+        return gameStatusMap;
     }
 
     /**
@@ -58,8 +54,8 @@ public class BridgeGame {
      * <p>
      * 재시작을 위해 필요한 메서드의 반환 타입(return type), 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
      */
-    public boolean retry(ReadGameCommandDto dto) {
-        if (RetryQuit.RETRY == dto.getRetryQuit()) {
+    public boolean retry(RetryQuit input) {
+        if (RetryQuit.RETRY == input) {
             tryCount.increase();
             position.clear();
             gameStatusMap.clear();

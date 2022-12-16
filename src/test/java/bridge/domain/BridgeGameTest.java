@@ -1,8 +1,5 @@
 package bridge.domain;
 
-import bridge.dto.input.ReadGameCommandDto;
-import bridge.dto.input.ReadMovingDto;
-import bridge.dto.output.PrintMapDto;
 import bridge.enums.RetryQuit;
 import bridge.enums.UpDown;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 class BridgeGameTest {
     BridgeGame bridgeGame;
@@ -25,37 +23,30 @@ class BridgeGameTest {
     @DisplayName("끝까지 도달")
     @Test
     void reachedToTheEndTest() {
-        PrintMapDto dto1 = bridgeGame.move(new ReadMovingDto(UpDown.UP));
-        assertThat(dto1.getGameStatusMap().toString()).isEqualTo("[ O ]\n[   ]");
-
-        PrintMapDto dto2 = bridgeGame.move(new ReadMovingDto(UpDown.UP));
-        assertThat(dto2.getGameStatusMap().toString()).isEqualTo("[ O | O ]\n[   |   ]");
-
-        PrintMapDto dto3 = bridgeGame.move(new ReadMovingDto(UpDown.DOWN));
-        assertThat(dto3.getGameStatusMap().toString()).isEqualTo("[ O | O |   ]\n[   |   | O ]");
+        assertAll(
+                () -> assertEquals(bridgeGame.move(UpDown.UP).toString(), "[ O ]\n[   ]"),
+                () -> assertEquals(bridgeGame.move(UpDown.UP).toString(), "[ O | O ]\n[   |   ]"),
+                () -> assertEquals(bridgeGame.move(UpDown.DOWN).toString(), "[ O | O |   ]\n[   |   | O ]")
+        );
     }
 
     @DisplayName("중간에 실패")
     @Test
     void canNotReachedToTheEndTest() {
-        PrintMapDto dto1 = bridgeGame.move(new ReadMovingDto(UpDown.UP));
-        assertThat(dto1.getGameStatusMap().toString()).isEqualTo("[ O ]\n[   ]");
-
-        PrintMapDto dto2 = bridgeGame.move(new ReadMovingDto(UpDown.DOWN));
-        assertThat(dto2.getGameStatusMap().toString()).isEqualTo("[ O |   ]\n[   | X ]");
+        assertAll(
+                () -> assertEquals(bridgeGame.move(UpDown.UP).toString(), "[ O ]\n[   ]"),
+                () -> assertEquals(bridgeGame.move(UpDown.DOWN).toString(), "[ O |   ]\n[   | X ]")
+        );
     }
 
     @DisplayName("실패 후 재시작")
     @Test
     void retryTest() {
-        PrintMapDto dto1 = bridgeGame.move(new ReadMovingDto(UpDown.UP));
-        assertThat(dto1.getGameStatusMap().toString()).isEqualTo("[ O ]\n[   ]");
-
-        PrintMapDto dto2 = bridgeGame.move(new ReadMovingDto(UpDown.DOWN));
-        assertThat(dto2.getGameStatusMap().toString()).isEqualTo("[ O |   ]\n[   | X ]");
-
-        bridgeGame.retry(new ReadGameCommandDto(RetryQuit.RETRY));
-        PrintMapDto dto3 = bridgeGame.move(new ReadMovingDto(UpDown.UP));
-        assertThat(dto3.getGameStatusMap().toString()).isEqualTo("[ O ]\n[   ]");
+        assertAll(
+                () -> assertEquals(bridgeGame.move(UpDown.UP).toString(), "[ O ]\n[   ]"),
+                () -> assertEquals(bridgeGame.move(UpDown.DOWN).toString(), "[ O |   ]\n[   | X ]")
+        );
+        bridgeGame.retry(RetryQuit.RETRY);
+        assertThat(bridgeGame.move(UpDown.UP).toString()).isEqualTo("[ O ]\n[   ]");
     }
 }

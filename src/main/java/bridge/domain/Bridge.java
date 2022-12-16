@@ -1,10 +1,9 @@
 package bridge.domain;
 
-import bridge.dto.input.ReadBridgeSizeDto;
 import bridge.enums.UpDown;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Bridge {
     private List<UpDown> bridge;
@@ -17,16 +16,13 @@ public class Bridge {
     }
 
     public static Bridge create(List<String> bridge) {
-        List<UpDown> list = mapBridge(bridge);
-        return new Bridge(list);
+        return new Bridge(mapBridge(bridge));
     }
 
     private static List<UpDown> mapBridge(List<String> bridge) {
-        List<UpDown> result = new ArrayList<>();
-        for (String input : bridge) {
-            result.add(UpDown.map(input));
-        }
-        return result;
+        return bridge.stream()
+                .map(UpDown::map)
+                .collect(Collectors.toList());
     }
 
     private UpDown getByIndex(Position position) {

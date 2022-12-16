@@ -2,6 +2,7 @@ package bridge.controller;
 
 import bridge.domain.BridgeGame;
 import bridge.domain.BridgeMaker;
+import bridge.domain.GameStatusMap;
 import bridge.dto.input.ReadBridgeSizeDto;
 import bridge.dto.input.ReadGameCommandDto;
 import bridge.dto.input.ReadMovingDto;
@@ -43,20 +44,20 @@ public class GameController {
 
     private GameStatus makeBridge(BridgeMaker bridgeMaker) {
         ReadBridgeSizeDto readBridgeSizeDto = ioViewResolver.inputViewResolve(ReadBridgeSizeDto.class);
-        bridgeGame = new BridgeGame(readBridgeSizeDto, bridgeMaker);
+        bridgeGame = new BridgeGame(readBridgeSizeDto.getSize(), bridgeMaker);
         return GameStatus.GAME_PLAY;
     }
 
     private GameStatus gamePlay() {
         ReadMovingDto readMovingDto = ioViewResolver.inputViewResolve(ReadMovingDto.class);
-        PrintMapDto printMapDto = bridgeGame.move(readMovingDto);
-        ioViewResolver.outputViewResolve(printMapDto);
+        GameStatusMap gameStatusMap = bridgeGame.move(readMovingDto.getUpDown());
+        ioViewResolver.outputViewResolve(new PrintMapDto(gameStatusMap));
         return GameStatus.getNextStatus(bridgeGame.canGoForward(), bridgeGame.isOver());
     }
 
     private GameStatus gameOver() {
         ReadGameCommandDto readCommandDto = ioViewResolver.inputViewResolve(ReadGameCommandDto.class);
-        boolean isRetry = bridgeGame.retry(readCommandDto);
+        boolean isRetry = bridgeGame.retry(readCommandDto.getRetryQuit());
         return GameStatus.retryOrNot(isRetry);
     }
 
